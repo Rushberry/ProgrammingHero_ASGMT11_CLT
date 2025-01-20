@@ -8,6 +8,12 @@ import {
 import Root from './components/Root';
 import Home from './elements/Home';
 import ErrorPage from './elements/ErrorPage';
+import AuthProvider from './providers/AuthProvider';
+import Login from './elements/Login';
+import Register from './elements/Register';
+import AddCar from './elements/AddCar';
+import AvailableCars from './elements/AvailableCars';
+import MyBookings from './elements/MyBookings';
 
 const router = createBrowserRouter([
   {
@@ -19,12 +25,37 @@ const router = createBrowserRouter([
         path: '/',
         element: <Home></Home>
       },
+      {
+        path: '/login',
+        element: <Login></Login>
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
+      },
+      {
+        path: '/addCar',
+        element: <AddCar></AddCar>
+      },
+      {
+        path: '/availableCars',
+        element: <AvailableCars></AvailableCars>
+      },
+      {
+        path: '/myBookings',
+        element: <MyBookings></MyBookings>
+      },
+      {
+        
+      }
     ]
   },
 ]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 )
