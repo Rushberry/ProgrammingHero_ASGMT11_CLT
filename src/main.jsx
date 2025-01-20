@@ -12,8 +12,10 @@ import AuthProvider from './providers/AuthProvider';
 import Login from './elements/Login';
 import Register from './elements/Register';
 import AddCar from './elements/AddCar';
+import AccessProvider from './providers/AccessProvider.jsx';
 import AvailableCars from './elements/AvailableCars';
 import MyBookings from './elements/MyBookings';
+import MyCars from './elements/MyCars';
 
 const router = createBrowserRouter([
   {
@@ -35,7 +37,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/addCar',
-        element: <AddCar></AddCar>
+        element: <AccessProvider><AddCar></AddCar></AccessProvider>
       },
       {
         path: '/availableCars',
@@ -43,10 +45,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/myBookings',
-        element: <MyBookings></MyBookings>
+        element: <AccessProvider><MyBookings></MyBookings></AccessProvider>
       },
       {
-        
+        path: '/myCars',
+        element: <AccessProvider><MyCars></MyCars></AccessProvider>
       }
     ]
   },
