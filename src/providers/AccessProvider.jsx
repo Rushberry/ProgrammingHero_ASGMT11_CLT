@@ -12,7 +12,7 @@ const AccessProvider = ({ children }) => {
                 <img
                     src="/assets/favicon.png" 
                     alt="Loading..."
-                    className="w-36 h-36 animate-ping"
+                    className="w-36 h-36 border border-white rounded-3xl animate-ping"
                 />
             </div>
         </>

@@ -70,7 +70,7 @@ const Register = () => {
                     theme: "light",
                 });
                 setTimeout(() => {
-                    navigate('/')
+                    navigate('/login')
                 }, 2050)
             })
             .catch(err => {

@@ -84,7 +84,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </nav>
-            <div className="bg-black h-1.5 blur-md"></div>
         </div>
     );
 };
