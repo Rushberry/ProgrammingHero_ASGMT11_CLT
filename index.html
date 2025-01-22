@@ -19,6 +19,11 @@
     .font-poppins{
       font-family: "Poppins", serif;
     }
+
+    /* Modal Full Screen */
+    :root:has(:is(.modal-open, .modal:target, .modal-toggle:checked + .modal, .modal[open])) {
+      scrollbar-gutter: unset;
+    }
   </style>
 </head>
 

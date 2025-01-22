@@ -5,9 +5,6 @@ import { TbCarambolaFilled } from "react-icons/tb";
 import axios from "axios";
 
 const AddCar = () => {
-    const api = axios.create({
-        baseURL: 'http://localhost:2025' 
-    })
     const {user} = useContext(AuthContext)
     const userName = user.displayName;
     const userEmail = user.email;
@@ -17,32 +14,30 @@ const AddCar = () => {
         const email = userEmail;
         const name = userName;
         const carModel = form.model.value;
-        const rentalPrice = form.price.value;
-        const availability = form.availability.value;
-        const vehicleNumber = form.registration.value;
+        const dailyRentalPrice = form.price.value;
+        const availability = Boolean(form.availability.value);
+        console.log(availability)
+        const vehicleRegistrationNumber = form.registration.value;
         const features = form.features.value.split(', ');
         const description = form.description.value;
         const bookingCount = form.bookingCount.value;
-        const image = form.img.value;
+        const imageUrl = form.img.value;
         const location = form.location.value;
         const submitDate = new Date().toISOString()
-        const car = {name, email, carModel, rentalPrice, availability, vehicleNumber, features, description, bookingCount, image, location, submitDate};
+        const car = {name, email, carModel, dailyRentalPrice, availability, vehicleRegistrationNumber, features, description, bookingCount, imageUrl, location, submitDate};
         console.log(car)
-        api.post('/addCar', car)
-        .then(res => res.data)
-        // .then(data => {
-    //         // //console.log(data)
-    //     toast.success('Review Added Successfully!', {
-    //         position: "top-right",
-    //         autoClose: 2000,
-    //         hideProgressBar: false,
-    //         closeOnClick: false,
-    //         pauseOnHover: false,
-    //         theme: "light",
-    //     });
-    //     }
-    // )
-    //     e.target.reset()
+        axios.post('http://localhost:2025/addCar', car)
+        .then(res => {
+            form.reset()
+            toast.success('Car Added Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: false,
+                        theme: "light",
+                    });
+            console.log(res.data)})
     }
     return (
         <div className="bg-[url('/assets/carImg.png')] flex justify-center items-center h-auto bg-cover bg-no-repeat">

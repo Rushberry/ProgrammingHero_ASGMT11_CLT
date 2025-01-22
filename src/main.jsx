@@ -16,6 +16,7 @@ import AccessProvider from './providers/AccessProvider.jsx';
 import AvailableCars from './elements/AvailableCars';
 import MyBookings from './elements/MyBookings';
 import MyCars from './elements/MyCars';
+import Car from './elements/Car.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,11 @@ const router = createBrowserRouter([
       {
         path: '/myCars',
         element: <AccessProvider><MyCars></MyCars></AccessProvider>
+      },
+      {
+        path: '/car/:id',
+        loader: ({ params }) => fetch(`http://localhost:2025/car/${params.id}`),
+        element: <Car></Car>
       }
     ]
   },
