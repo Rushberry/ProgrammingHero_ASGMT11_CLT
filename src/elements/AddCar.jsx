@@ -1,13 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
-import { TbCarambolaFilled } from "react-icons/tb";
 import axios from "axios";
 
 const AddCar = () => {
     const {user} = useContext(AuthContext)
-    const userName = user.displayName;
-    const userEmail = user.email;
+    const userName = user?.displayName;
+    const userEmail = user?.email;
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;

@@ -1,7 +1,13 @@
+import { useContext } from 'react';
 import { GoArrowUpRight } from 'react-icons/go';
-import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProvider';
+import axios from 'axios';
 
 const Car = () => {
+    const { user } = useContext(AuthContext)
+    const userName = user?.displayName;
+    const userEmail = user?.email;
     const loader = useLoaderData()
     const data = loader[0]
     const navigate = useNavigate()
@@ -9,6 +15,29 @@ const Car = () => {
         navigate(-1)
     }
     const handleBooking = () => {
+        const email = userEmail;
+        const name = userName;
+        const carModel = data?.carModel;
+        const dailyRentalPrice = data?.dailyRentalPrice;
+        const imageUrl = data?.imageUrl;
+        const bookingDate = new Date().toISOString()
+        const bookingStatus = 'confirmed'
+        const carId = data?._id
+        const bookingData = {
+            name, email, carModel, dailyRentalPrice, imageUrl, bookingDate, bookingStatus, carId
+        }
+        console.log(bookingData)
+        axios.post('http://localhost:2025/booking', bookingData)
+        .then(res => {
+            axios.patch(`http://localhost:2025/updateBookingCount/${data?._id}`)
+            .then(res => 
+                {
+                    if(res.data.acknowledged){
+                        navigate('/myBookings')
+                    }
+                    console.log(res.data)
+                })
+            console.log(res.data)})
     }
     return (
         <div className="bg-[url('/assets/carImg.png')] flex justify-center items-center h-auto bg-cover bg-no-repeat">
