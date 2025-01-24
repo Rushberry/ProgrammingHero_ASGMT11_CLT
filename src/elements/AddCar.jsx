@@ -1,12 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const AddCar = () => {
     const {user} = useContext(AuthContext)
+    const navigate = useNavigate()
     const userName = user?.displayName;
     const userEmail = user?.email;
+    const [availabilitys, setAvailability] = useState('')
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
@@ -14,7 +17,7 @@ const AddCar = () => {
         const name = userName;
         const carModel = form.model.value;
         const dailyRentalPrice = form.price.value;
-        const availability = Boolean(form.availability.value);
+        const availability = availabilitys;
         const vehicleRegistrationNumber = form.registration.value;
         const features = form.features.value.split(', ');
         const description = form.description.value;
@@ -35,6 +38,9 @@ const AddCar = () => {
                         pauseOnHover: false,
                         theme: "light",
                     });
+                    setTimeout(() => {
+                        navigate("/myCars")
+                    }, 2050)
             console.log(res.data)})
     }
     return (
@@ -48,8 +54,8 @@ const AddCar = () => {
                 <form className="flex flex-col mx-auto w-11/12 gap-4 mb-8" onSubmit={handleSubmit}>
                     <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="model" type="text" placeholder="Car Model" required />
                     <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="price" type="number" placeholder="Daily Rental Price ($)" required />
-                    <select className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="availability" placeholder="Availability" required>
-                        <option className="hidden" value="" disabled selected>Availability</option>
+                    <select value={availabilitys} onChange={(e) => {setAvailability(e.target.value === 'true' ? true : false)}} className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="availability" placeholder="Availability" required>
+                        <option className="hidden" value="" disabled >Availability</option>
                         <option value={true}>Available</option>
                         <option value={false}>Unavailable</option>
                     </select>
