@@ -39,6 +39,10 @@ const Car = () => {
                 })
             console.log(res.data)})
     }
+
+    const handleGoToLogin = () => {
+        navigate('/login')
+    }
     return (
         <div className="bg-[url('/assets/carImg.png')] flex justify-center items-center h-auto bg-cover bg-no-repeat">
             <div className="bg-transparent flex flex-col justify-center items-center my-[100px] backdrop-blur-lg border border-white rounded-3xl lg:mx-11 mx-5 lg:w-8/12 w-10/12">
@@ -61,7 +65,10 @@ const Car = () => {
                 </div>
                 <div className="flex flex-row gap-3 justify-between w-11/12 mb-4">
                     <button className="border border-white text-white px-5 py-2 hover:bg-white hover:text-black rounded-lg bg-black font-space font-medium text-[18px] flex items-center" onClick={handleGoBack}>Go Back</button>
-                    <button className="border border-white text-white px-5 py-2 hover:bg-white hover:text-black rounded-lg bg-black font-space font-medium text-[18px] flex items-center" onClick={() => { document.getElementById(`${data?._id}`).showModal() }}>Book Now<GoArrowUpRight /></button>
+                    {
+                        user ? <button className="border border-white text-white px-5 py-2 hover:bg-white hover:text-black rounded-lg bg-black font-space font-medium text-[18px] flex items-center" onClick={() => { document.getElementById(`${data?._id}`).showModal() }}>Book Now<GoArrowUpRight /></button>
+                        : <button className="border border-white text-white px-5 py-2 hover:bg-white hover:text-black rounded-lg bg-black font-space font-medium text-[18px] flex items-center" onClick={handleGoToLogin}>Login To Book Now<GoArrowUpRight /></button>
+                    }
                 </div>
                 <img src={data?.imageUrl} alt={data?.carModel} className="w-11/12 rounded-3xl" />
                 <p className="bg-black p-5 w-11/12 border border-white rounded-3xl mt-6 lg:mb-9 mb-4 text-white">{data?.description}</p>
