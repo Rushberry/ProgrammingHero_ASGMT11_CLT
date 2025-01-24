@@ -15,11 +15,10 @@ const AddCar = () => {
         const carModel = form.model.value;
         const dailyRentalPrice = form.price.value;
         const availability = Boolean(form.availability.value);
-        console.log(availability)
         const vehicleRegistrationNumber = form.registration.value;
         const features = form.features.value.split(', ');
         const description = form.description.value;
-        const bookingCount = form.bookingCount.value;
+        const bookingCount = parseInt(form.bookingCount.value);
         const imageUrl = form.img.value;
         const location = form.location.value;
         const submitDate = new Date().toISOString()

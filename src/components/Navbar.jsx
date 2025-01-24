@@ -69,7 +69,7 @@ const Navbar = () => {
                                     <div id="auth" className="p-2 rounded-full py-1 flex flex-col justify-start items-start gap-2">
                                         <button onClick={handleSignOut} className="py-1 my-1 font-medium px-3 bg-[#c24444] gap-2 text-[16px] rounded-full text-white">Log Out</button>
                                         <a className="cursor-pointer" data-tooltip-id="user-name-tooltip" data-tooltip-content={user?.displayName} data-tooltip-place="top" >
-                                            <img className="w-[55px]  rounded-full border border-black h-[55px] bg-cover bg-center" src={user.photoURL ? user.photoURL : 'https://i.ibb.co.com/FWDPjz3/Anime-Boy-Smile-1.jpg'} />
+                                            <img className="w-[55px]  rounded-full border border-black h-[55px] bg-cover bg-center" src={user?.photoURL ? user?.photoURL : 'https://i.ibb.co.com/FWDPjz3/Anime-Boy-Smile-1.jpg'} />
                                         </a>
                                         <Tooltip id="user-name-tooltip"></Tooltip>
                                     </div>
