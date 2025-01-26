@@ -9,7 +9,7 @@ const AddCar = () => {
     const navigate = useNavigate()
     const userName = user?.displayName;
     const userEmail = user?.email;
-    const [availabilitys, setAvailability] = useState('')
+    const [availabilitys, setAvailability] = useState(null)
     const handleSubmit = e => {
         e.preventDefault()
         const form = e.target;
