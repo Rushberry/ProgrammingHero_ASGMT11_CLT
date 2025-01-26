@@ -11,3 +11,16 @@
     background: white;
     color: black;
 }
+
+
+
+/* I need to remove this after the instructor check my assignment */
+#booking tbody tr:nth-child(2n+1) {
+    background-color: black;
+}
+
+#booking tbody>tr:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+}
