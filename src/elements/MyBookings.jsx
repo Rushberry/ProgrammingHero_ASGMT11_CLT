@@ -8,29 +8,31 @@ import Chart from "./Chart";
 import { AiOutlineDelete } from "react-icons/ai";
 import { GoArrowUpRight } from "react-icons/go";
 import { MdOutlineDateRange } from "react-icons/md";
+import useAxios from "../providers/useAxios";
 const MyBookings = () => {
     const { user } = useContext(AuthContext)
+    const axiosSecure = useAxios()
     const userEmail = user?.email;
     const [data, setData] = useState([])
     const [chartData, setChartData] = useState([])
     useEffect(() => {
-        axios.get(`http://localhost:2025/myBookings?email=${userEmail}`)
+        axiosSecure.get(`/myBookings?email=${userEmail}`)
             .then(res => setData(res.data))
     }, [userEmail])
     useEffect(() => {
-        axios.get(`http://localhost:2025/confirmed?email=${userEmail}`)
+        axiosSecure.get(`/confirmed?email=${userEmail}`)
             .then(res => setChartData(res.data))
     }, [userEmail])
     const handleCancel = (e, id) => {
-        axios.patch(`http://localhost:2025/bookingStatus/${e}`)
+        axiosSecure.patch(`/bookingStatus/${e}`)
             .then(() => {
-                axios.get(`http://localhost:2025/myBookings?email=${userEmail}`)
+                axiosSecure.get(`/myBookings?email=${userEmail}`)
                     .then(res => setData(res.data))
             })
         document.getElementById(`${e}`).close()
-        axios.patch(`http://localhost:2025/updateBooking/${id}`)
+        axiosSecure.patch(`/updateBooking/${id}`)
             .then(res => console.log(res.data))
-        axios.get(`http://localhost:2025/confirmed?email=${userEmail}`)
+        axiosSecure.get(`/confirmed?email=${userEmail}`)
             .then(res => setChartData(res.data))
     }
     const [dateData, setDateData] = useState(new Date())
@@ -41,11 +43,11 @@ const MyBookings = () => {
     const handleModify = (e) => {
         const dateTime = new Date(dateData).toISOString()
         const car = { bookingDateUpdated: dateTime }
-        axios.patch(`http://localhost:2025/modifyDate/${e}`, car)
+        axiosSecure.patch(`/modifyDate/${e}`, car)
             .then(() =>document.getElementById(`${e}D`).close())
     }
     useEffect(() => {
-        axios.get(`http://localhost:2025/myBookings?email=${userEmail}`)
+        axiosSecure.get(`/myBookings?email=${userEmail}`)
             .then(res => setData(res.data))
     })
     return (

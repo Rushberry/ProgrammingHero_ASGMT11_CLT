@@ -16,7 +16,7 @@ const AvailableCars = () => {
     const [selectedLowest, setSelectedLowest] = useState(null)
     const [selectedHighest, setSelectedHighest] = useState(null)
     useEffect(() => {
-        axios.get('http://localhost:2025/availableCars')
+        axios.get('https://aura-drive.vercel.app/availableCars')
             .then(res => setCars(res.data))
     }, [])
     const handleLowest = () => {
@@ -34,7 +34,7 @@ const AvailableCars = () => {
     }
     const handleSearch = (e) => {
         const q = e.target.value;
-        axios.get(`http://localhost:2025/cars/search?q=${q}`)
+        axios.get(`https://aura-drive.vercel.app/cars/search?q=${q}`)
             .then(res => setCars(res.data))
         setSelectedLowest(null)
         setSelectedHighest(null)
@@ -47,7 +47,7 @@ const AvailableCars = () => {
     const handleRefresh = e => {
         e.preventDefault()
         e.target.reset()
-        axios.get('http://localhost:2025/availableCars')
+        axios.get('https://aura-drive.vercel.app/availableCars')
             .then(res => setCars(res.data))
         setSelectedLowest(null)
         setSelectedHighest(null)

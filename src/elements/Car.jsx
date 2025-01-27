@@ -27,9 +27,9 @@ const Car = () => {
             name, email, carModel, dailyRentalPrice, imageUrl, bookingDate, bookingStatus, carId
         }
         console.log(bookingData)
-        axios.post('http://localhost:2025/booking', bookingData)
+        axios.post('https://aura-drive.vercel.app/booking', bookingData)
         .then(res => {
-            axios.patch(`http://localhost:2025/updateBookingCount/${data?._id}`)
+            axios.patch(`https://aura-drive.vercel.app/updateBookingCount/${data?._id}`)
             .then(res => 
                 {
                     if(res.data.acknowledged){

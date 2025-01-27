@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/car/:id',
-        loader: ({ params }) => fetch(`http://localhost:2025/car/${params.id}`),
+        loader: ({ params }) => fetch(`https://aura-drive.vercel.app/car/${params.id}`),
         element: <Car></Car>
       }
     ]

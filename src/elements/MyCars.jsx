@@ -3,24 +3,26 @@ import { AuthContext } from "../providers/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
 import moment from "moment";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GoArrowUpRight } from "react-icons/go";
+import useAxios from "../providers/useAxios";
 
 const MyCars = () => {
     const { user } = useContext(AuthContext)
+    const axiosSecure = useAxios()
     const userEmail = user?.email;
     const [data, setData] = useState([])
     const navigate = useNavigate()
     const [selectedLowest, setSelectedLowest] = useState(null)
     const [selectedHighest, setSelectedHighest] = useState(null)
     useEffect(() => {
-        axios.get(`http://localhost:2025/myCars?email=${userEmail}`)
+        axiosSecure.get(`/myCars?email=${userEmail}`)
             .then(res => setData(res.data))
     }, [userEmail])
     const handleDelete = e => {
-        axios.delete(`http://localhost:2025/deleteCar/${e}`)
+        axiosSecure.delete(`/deleteCar/${e}`)
             .then(() => {
-                axios.get(`http://localhost:2025/myCars?email=${userEmail}`)
+                axiosSecure.get(`/myCars?email=${userEmail}`)
                     .then(res => setData(res.data))
             })
         toast.success('Car Deleted Successfully!', {
@@ -51,7 +53,7 @@ const MyCars = () => {
     const car = info[0]
     const handleUpdate = (e, id) => {
         document.getElementById(e).showModal()
-        axios.get(`http://localhost:2025/car/${id}`)
+        axios.get(`https://aura-drive.vercel.app/car/${id}`)
             .then(res => setInfo(res.data))
         console.log(car)
         setId(id)
@@ -69,9 +71,9 @@ const MyCars = () => {
         const imageUrl = form.img.value;
         const location = form.location.value;
         const car = { carModel, dailyRentalPrice, availability, vehicleRegistrationNumber, features, description, imageUrl, location };
-        axios.patch(`http://localhost:2025/updateCar/${id}`, car)
+        axiosSecure.patch(`/updateCar/${id}`, car)
             .then(() => {
-                axios.get(`http://localhost:2025/myCars?email=${userEmail}`)
+                axiosSecure.get(`/myCars?email=${userEmail}`)
                     .then(res => setData(res.data))
                 toast.success('Updated Successfully!', {
                     position: "top-right",

@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { toast, ToastContainer } from "react-toastify";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useAxios from "../providers/useAxios";
 
 const AddCar = () => {
     const {user} = useContext(AuthContext)
+    const axiosSecure = useAxios()
     const navigate = useNavigate()
     const userName = user?.displayName;
     const userEmail = user?.email;
@@ -27,7 +28,7 @@ const AddCar = () => {
         const submitDate = new Date().toISOString()
         const car = {name, email, carModel, dailyRentalPrice, availability, vehicleRegistrationNumber, features, description, bookingCount, imageUrl, location, submitDate};
         console.log(car)
-        axios.post('http://localhost:2025/addCar', car)
+        axiosSecure.post('/addCar', car)
         .then(res => {
             form.reset()
             toast.success('Car Added Successfully!', {

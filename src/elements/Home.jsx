@@ -15,7 +15,7 @@ import { GoArrowUpRight } from 'react-icons/go';
 const Home = () => {
     const [cars, setCars] = useState([])
     useEffect(() => {
-        axios.get('http://localhost:2025/latestSix')
+        axios.get('https://aura-drive.vercel.app/latestSix')
             .then(res => setCars(res.data))
     }, [])
     return (

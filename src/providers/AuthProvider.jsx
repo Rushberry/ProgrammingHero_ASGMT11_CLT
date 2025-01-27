@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../firebase.init";
+import axios from "axios";
 export const AuthContext = createContext(null)
 
 const AuthProvider = ({ children }) => {
@@ -37,9 +38,20 @@ const AuthProvider = ({ children }) => {
     }
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
-            // //console.log(currentUser)
             setUser(currentUser)
-            setLoader(false)
+            if(currentUser?.email){
+                const user = {email: currentUser.email}
+                axios.post('https://aura-drive.vercel.app/jwt', user, {withCredentials: true})
+                .then(res => {
+                    setLoader(false)
+                    console.log('Login >', res.data)})
+            }
+            else{
+                axios.post('https://aura-drive.vercel.app/logout', {}, {withCredentials: true})
+                .then(res => {
+                    setLoader(false)
+                    console.log('Logout >', res.data)})
+            }
         })
 
         return () => {
