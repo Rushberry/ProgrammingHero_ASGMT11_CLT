@@ -30,7 +30,7 @@ const MyBookings = () => {
                     .then(res => setData(res.data))
             })
         document.getElementById(`${e}`).close()
-        axiosSecure.patch(`/updateBooking/${id}`)
+        axios.patch(`/updateBooking/${id}`)
             .then(res => console.log(res.data))
         axiosSecure.get(`/confirmed?email=${userEmail}`)
             .then(res => setChartData(res.data))
