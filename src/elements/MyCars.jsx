@@ -54,19 +54,31 @@ const MyCars = () => {
     const handleUpdate = (e, id) => {
         document.getElementById(e).showModal()
         axios.get(`https://aura-drive.vercel.app/car/${id}`)
-            .then(res => setInfo(res.data))
-        console.log(car)
+            .then(res => {setInfo(res.data)
+                setAvailability(res.data[0].availability)
+            })
+        // console.log(car)
         setId(id)
+        // 
     }
-    const [availabilitys, setAvailability] = useState(null)
+    const [isAvailable, setAvailability] = useState('true')
+    const handleChange = e => {
+        if(e.target.value === 'true'){
+            setAvailability(true)
+        }
+        else if (e.target.value === 'false'){
+            setAvailability(false)
+        }
+        // console.log(isAvailable)
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
         const form = e.target;
         const carModel = form.model.value;
         const dailyRentalPrice = form.price.value;
-        const availability = availabilitys;
+        const availability = isAvailable;
         const vehicleRegistrationNumber = form.registration.value;
-        const features = form.features.value.split(', ');
+        const features = form.features.value.split(',');
         const description = form.description.value;
         const imageUrl = form.img.value;
         const location = form.location.value;
@@ -154,10 +166,9 @@ const MyCars = () => {
                                                         <form className="flex flex-col mx-auto gap-4 mb-8" onSubmit={handleSubmit}>
                                                             <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="model" type="text" placeholder="Car Model" defaultValue={`${car?.carModel}`} required />
                                                             <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="price" type="number" placeholder="Daily Rental Price ($)" defaultValue={car?.dailyRentalPrice} required />
-                                                            
-                                                            <select value={availabilitys} defaultValue={car?.availability} onChange={(e) => { setAvailability(e.target.value === 'true' ? true : false) }} className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="availability" placeholder="Availability"  required>
-                                                                <option value={true}>Available</option>
-                                                                <option value={false}>Unavailable</option>
+                                                            <select  onChange={handleChange} value={isAvailable} className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="availability" placeholder="Availability"  required>
+                                                                <option value={'true'}>Available</option>
+                                                                <option value={'false'}>Unavailable</option>
                                                             </select>
                                                             <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="registration" type="text" placeholder="Vehicle Registration Number" defaultValue={car?.vehicleRegistrationNumber} required />
                                                             <input className="bg-gray-50 border border-gray-300 text-black rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5" name="features" type="text" placeholder="Features (e.g., GPS, AC, etc.)" defaultValue={car?.features} required />
